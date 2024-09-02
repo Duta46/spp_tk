@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Pembayaran extends Model
 {
     protected $table = 'pembayaran';
-   
+
     protected $fillable = [
-         'id_petugas','id_siswa', 'spp_bulan', 'jumlah_bayar'
+        'id_petugas',
+        'id_siswa',
+        'spp_bulan',
+        'jumlah_bayar',
     ];
-   
+
  /**
    * Belongs To Pembayaran -> User (petugas)
    *
@@ -21,7 +24,7 @@ class Pembayaran extends Model
     {
          return $this->belongsTo(User::class,'id_petugas', 'id');
     }
-   
+
  /**
    * Has Many Pembayaran -> Siswa
    *
@@ -31,5 +34,5 @@ class Pembayaran extends Model
     {
          return $this->belongsTo(Siswa::class,'id_siswa','id','nisn');
     }
-   
+
 }

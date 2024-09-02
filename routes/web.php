@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('auth.login ');
 });
@@ -25,6 +26,7 @@ Route::resource('/dashboard/data-spp', 'SppController');
 Route::resource('/dashboard/data-petugas', 'PetugasController');
 Route::resource('/dashboard/pembayaran', 'PembayaranController');
 Route::resource('/dashboard/histori', 'HistoryController');
+Route::resource('/dashboard/tabungan-siswa', 'TabunganSiswaController');
 
 Route::get('/dashboard/laporan', 'LaporanController@index');
 Route::get('/dashboard/laporan/create', 'LaporanController@create');

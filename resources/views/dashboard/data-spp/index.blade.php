@@ -1,5 +1,7 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Data SPP')
+
 @section('breadcrumb')
 	<li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">SPP</li>
@@ -12,38 +14,38 @@
               <div class="card">
                   <div class="card-body">
                        <div class="card-title">{{ __('Tambah SPP') }}</div>
-                     
+
                         <form method="post" action="{{ url('/dashboard/data-spp') }}">
                            @csrf
-                           
+
                            <div class="form-group">
                               <label>Tahun</label>
                               <input type="number" class="form-control @error('tahun') is-invalid @enderror" name="tahun" value="{{ old('tahun') }}">
                               <span class="text-danger">@error('tahun') {{ $message }} @enderror</span>
                            </div>
-                           
+
                            <div class="form-group">
                               <label>Nominal</label>
                               <input type="text" class="form-control @error('nominal') is-invalid @enderror" name="nominal" value="{{ old('nominal') }}">
                               <span class="text-danger">@error('nominal') {{ $message }} @enderror</span>
                            </div>
-                           
+
                            <button type="submit" class="btn btn-success btn-rounded float-right">
                                  <i class="mdi mdi-check"></i> Simpan
                            </button>
-                        
+
                         </form>
                   </div>
-              </div>     
+              </div>
             </div>
-            
+
 	</div>
      <div class="row">
            <div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
 					<div class="card-title">Data SPP</div>
-                              
+
 						<div class="table-responsive mb-3">
                                 <table class="table">
                                     <thead>
@@ -52,21 +54,21 @@
                                              <th scope="col">TAHUN</th>
 								                     <th scope="col">NOMINAL</th>
                                              <th scope="col">DIBUAT</th>
-								                     <th scope="col">ACTION</th>                                        
+								                     <th scope="col">ACTION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-								@php 
+								@php
 								$i=1;
 								@endphp
 								@foreach($spp as $value)
-                                        <tr>					    
+                                        <tr>
                                             <th scope="row">{{ $i }}</th>
                                             <td>{{ $value->tahun }}</td>
 								                     <td>{{ $value->nominal }}</td>
                                             <td>{{ $value->created_at->format('d M, Y') }}</td>
-					
-                                            <td>										                           
+
+                                            <td>
                                	 		  <div class="hide-menu">
                                     			<a href="javascript:void(0)" class="text-dark" id="actiondd" role="button" data-toggle="dropdown">
                                        				<i class="mdi mdi-dots-vertical"></i>
@@ -76,28 +78,28 @@
 											<form method="post" action="{{ url('dashboard/data-spp', $value->id) }}" id="delete{{ $value->id }}">
 												@csrf
 												@method('delete')
-												
+
 												<button type="button" class="dropdown-item" onclick="deleteData({{ $value->id }})">
 													<i class="ti-trash"></i> Hapus
-												</button>	
-											
-											</form>																																																
-                                        			                    							                                                                            
+												</button>
+
+											</form>
+
                                 				</div>
-                            				</div>								
-								    </td>					
+                            				</div>
+								    </td>
                                         </tr>
 								@php
 								$i++;
 								@endphp
-								@endforeach                                  
+								@endforeach
                                     </tbody>
                                 </table>
                             </div>
 
 					  <!-- Pagination -->
 					@if($spp->lastPage() != 1)
-						<div class="btn-group float-right">		
+						<div class="btn-group float-right">
 						   <a href="{{ $app->previousPageUrl() }}" class="btn btn-success">
 								<i class="mdi mdi-chevron-left"></i>
 						    </a>
@@ -110,7 +112,7 @@
 					   </div>
 					@endif
 					<!-- End Pagination -->
-					
+
 					   @if(count($spp) == 0)
 				  			<div class="text-center">Tidak ada data!</div>
 					   @endif
@@ -139,5 +141,5 @@
                   }
                })
    }
-   
+
 @endsection

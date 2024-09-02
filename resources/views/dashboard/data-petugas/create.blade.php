@@ -1,5 +1,7 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Tambah Petugas')
+
 @section('breadcrumb')
      <li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item">Petugas</li>
@@ -13,43 +15,43 @@
               <div class="card">
                   <div class="card-body">
                        <div class="card-title">{{ __('Tambah Petugas') }}</div>
-                     
+
                         <form method="post" action="{{ url('/dashboard/data-petugas') }}" id="create">
                            @csrf
-                           
-                           <div class="input-group mb-3">									
-                        <div class="input-group-prepend">										
-                           <label class="input-group-text">										 	
-                              Level	
+
+                           <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                           <label class="input-group-text">
+                              Level
                            </label>
                         </div>
-                        <select name="level" class="custom-select @error('level') is-invalid @enderror">							
-                              <option value="">Silahkan Pilih</option>											
+                        <select name="level" class="custom-select @error('level') is-invalid @enderror">
+                              <option value="">Silahkan Pilih</option>
                               <option value="admin">Admin</option>
                               <option value="petugas">Petugas</option>
                        </select>
                      </div>
                      <span class="text-danger">@error('level') {{ $message }} @enderror</span>
-               
-   
+
+
                            <div class="form-group">
                               <label>Nama</label>
                               <input type="text" id="nama" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}">
                               <span class="text-danger">@error('nama') {{ $message }} @enderror</span>
                            </div>
-                           
+
                            <div class="form-group">
                               <label>Email</label>
                               <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
                               <span class="text-danger">@error('email') {{ $message }} @enderror</span>
                            </div>
-                           
+
                            <div class="form-group">
                               <label>Password</label>
                               <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password">
                               <span class="text-danger">@error('password') {{ $message }} @enderror</span>
                            </div>
-                           
+
                            <div class="form-group">
                               <label>Konfirmasi Password</label>
                               <input type="password" id="konfirmasi_password" class="form-control @error('confirm_password') is-invalid @enderror" name="confirm_password">
@@ -58,16 +60,16 @@
                            <a href="{{ url('dashboard/data-petugas') }}" class="btn btn-primary btn-rounded">
                               <i class="mdi mdi-chevron-left"></i> Kembali
                            </a>
-                           
+
                            <button type="button" class="btn btn-success btn-rounded" onclick="button()">
                                  <i class="mdi mdi-check"></i> Simpan
                            </button>
-                        
+
                         </form>
                   </div>
-              </div>     
+              </div>
             </div>
-            
+
 	</div>
 
 @endsection
@@ -78,7 +80,7 @@
    {
         var password = $('#password').val()
         var confirm_password = $('#konfirmasi_password').val()
-        
+
         if(password == confirm_password){
              $('#create').submit()
          }else{
@@ -91,5 +93,5 @@
             })
          }
    }
-   
+
 @endsection
