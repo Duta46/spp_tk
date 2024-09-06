@@ -9,10 +9,13 @@ class Bekal extends Model
     protected $table = 'bekals';
 
     protected $fillable = [
-         'tahun',
+        'id_tahun_bekal',
          'bulan',
          'nominal',
     ];
 
-    
+    public function tahunBekal()
+    {
+        return $this->belongsTo(TahunBekal::class, 'id_tahun_bekal');
+    }
 }

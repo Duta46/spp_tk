@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBekalIdToSiswa extends Migration
+class CreateDrumbandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddBekalIdToSiswa extends Migration
      */
     public function up()
     {
-        Schema::table('siswa', function (Blueprint $table) {
-            $table->bigInteger('id_bekal')->unsigned()->nullable();
-            $table->foreign('id_bekal')->references('id')->on('bekals');
+        Schema::create('drumbands', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +26,6 @@ class AddBekalIdToSiswa extends Migration
      */
     public function down()
     {
-        Schema::table('siswa', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('drumbands');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBekalIdToSiswa extends Migration
+class AddTahunBekalIdToBekals extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddBekalIdToSiswa extends Migration
      */
     public function up()
     {
-        Schema::table('siswa', function (Blueprint $table) {
-            $table->bigInteger('id_bekal')->unsigned()->nullable();
-            $table->foreign('id_bekal')->references('id')->on('bekals');
+        Schema::table('bekals', function (Blueprint $table) {
+            $table->bigInteger('id_tahun_bekal')->unsigned()->nullable();
+            $table->foreign('id_tahun_bekal')->references('id')->on('tahun_bekals');
         });
     }
 
@@ -26,7 +26,7 @@ class AddBekalIdToSiswa extends Migration
      */
     public function down()
     {
-        Schema::table('siswa', function (Blueprint $table) {
+        Schema::table('bekals', function (Blueprint $table) {
             //
         });
     }

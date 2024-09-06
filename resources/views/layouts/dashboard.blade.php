@@ -106,6 +106,58 @@
                                     <span class="hide-menu">Data SPP</span>
                                 </a>
                             </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
+                                    aria-expanded="false" data-toggle="collapse" data-target="#bekalDropdown"
+                                    aria-controls="bekalDropdown">
+                                    <i class="mdi mdi-format-list-bulleted"></i>
+                                    <span class="hide-menu">Data Bekal</span for="bekalDropdown">
+                                    <i class="mdi mdi-chevron-down float-right"></i>
+                                </a>
+                                <ul id="bekalDropdown" class="collapse first-level" aria-expanded="false">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                            href="{{ url('/dashboard/tahun-bekal') }}" aria-expanded="false">
+                                            <i class="mdi mdi-cash-usd"></i>
+                                            <span class="hide-menu">Data Tahun Bekal</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                            href="{{ url('/dashboard/bekal') }}" aria-expanded="false">
+                                            <i class="mdi mdi-cash-usd"></i>
+                                            <span class="hide-menu">Data Bekal</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
+                                    aria-expanded="false" data-toggle="collapse" data-target="#potabDropdown"
+                                    aria-controls="potabDropdown">
+                                    <i class="mdi mdi-format-list-bulleted"></i>
+                                    <span class="hide-menu">Data Potab</span>
+                                    <i class="mdi mdi-chevron-down float-right"></i>
+                                </a>
+                                <ul id="potabDropdown" class="collapse first-level" aria-expanded="false">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                            href="{{ url('/dashboard/tahun-potab') }}" aria-expanded="false">
+                                            <i class="mdi mdi-cash-usd"></i>
+                                            <span class="hide-menu">Data Tahun Potab</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                            href="{{ url('/dashboard/potab') }}" aria-expanded="false">
+                                            <i class="mdi mdi-cash-usd"></i>
+                                            <span class="hide-menu">Data Potab</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         @endif
                         @if (auth()->user()->level == 'admin' || auth()->user()->level == 'petugas')
                             <li class="sidebar-item">

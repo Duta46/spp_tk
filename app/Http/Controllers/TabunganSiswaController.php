@@ -6,17 +6,19 @@ use Illuminate\Http\Request;
 use App\TabunganSiswa;
 use App\Siswa;
 use App\User;
+use PDF;
 use Alert;
 
 class TabunganSiswaController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware([
-           'auth',
-           'privilege:admin&petugas'
+            'auth',
+            'privilege:admin&petugas'
         ]);
-   }
+    }
 
 
     /**
@@ -57,35 +59,35 @@ class TabunganSiswaController extends Controller
             'numeric' => ':attribute harus berupa angka',
             'min' => ':attribute minimal harus :min angka',
             'max' => ':attribute maksimal harus :max angka',
-         ];
+        ];
 
         $request->validate([
             'nama' => 'required',
             'saldo' => 'required',
-         ], $message);
+        ], $message);
 
-         if(Siswa::where('nama',$request->nama)->exists() == false):
+        if (Siswa::where('nama', $request->nama)->exists() == false):
             Alert::error('Terjadi Kesalahan!', 'Siswa dengan Nama ini Tidak di Temukan');
-           return back();
+            return back();
             exit;
-         endif;
+        endif;
 
 
-         $siswa = Siswa::where('nama',$request->nama)->get();
+        $siswa = Siswa::where('nama', $request->nama)->get();
 
-         foreach($siswa as $val){
+        foreach ($siswa as $val) {
             $id_siswa = $val->id;
-         }
+        }
 
-         TabunganSiswa::create([
+        TabunganSiswa::create([
             'id_petugas' => auth()->user()->id,
             'id_siswa' => $id_siswa,
             'saldo' => $request->saldo,
-         ]);
+        ]);
 
-         Alert::success('Berhasil!', 'Tabungan Berhasil di Tambahkan!');
+        Alert::success('Berhasil!', 'Tabungan Berhasil di Tambahkan!');
 
-         return back();
+        return back();
     }
 
     /**
@@ -110,9 +112,9 @@ class TabunganSiswaController extends Controller
         $data = [
             'edit' => TabunganSiswa::find($id),
             'user' => User::find(auth()->user()->id)
-         ];
+        ];
 
-         return view('dashboard.tabungan-siswa.edit', $data);
+        return view('dashboard.tabungan-siswa.edit', $data);
     }
 
     /**
@@ -129,40 +131,40 @@ class TabunganSiswaController extends Controller
             'numeric' => ':attribute harus berupa angka',
             'min' => ':attribute minimal harus :min angka',
             'max' => ':attribute maksimal harus :max angka',
-         ];
+        ];
 
         $request->validate([
             'nama' => 'required',
             'saldo' => 'required',
-         ], $message);
+        ], $message);
 
-         $tabungan = TabunganSiswa::find($id);
+        $tabungan = TabunganSiswa::find($id);
 
-         $tabungan->update([
-             'nama' => $request->nama,
+        $tabungan->update([
+            'nama' => $request->nama,
             'saldo' => $request->saldo,
-         ]);
+        ]);
 
-         if(Siswa::where('nama',$request->nama)->exists() == false):
+        if (Siswa::where('nama', $request->nama)->exists() == false):
             Alert::error('Terjadi Kesalahan!', 'Siswa dengan Nama ini Tidak di Temukan');
-           return back();
+            return back();
             exit;
-         endif;
+        endif;
 
-         if($request->nama != $tabungan->siswa->nama) :
-            $siswa = Siswa::where('nama',$request->nama)->get();
+        if ($request->nama != $tabungan->siswa->nama) :
+            $siswa = Siswa::where('nama', $request->nama)->get();
 
-            foreach($siswa as $val){
-               $id_siswa = $val->id;
+            foreach ($siswa as $val) {
+                $id_siswa = $val->id;
             }
 
             $tabungan->update([
-               'id_siswa' => $id_siswa,
+                'id_siswa' => $id_siswa,
             ]);
-         endif;
+        endif;
 
-         Alert::success('Berhasil!', 'Tabungan berhasil di Edit');
-         return back();
+        Alert::success('Berhasil!', 'Tabungan berhasil di Edit');
+        return back();
     }
 
     /**
@@ -173,12 +175,24 @@ class TabunganSiswaController extends Controller
      */
     public function destroy($id)
     {
-        if(TabunganSiswa::find($id)->delete()) :
+        if (TabunganSiswa::find($id)->delete()) :
             Alert::success('Berhasil!', 'Tabungan Siswa Berhasil di Hapus!');
-         else :
+        else :
             Alert::success('Terjadi Kesalahan!', 'Tabungan Siswa Gagal di Hapus');
-         endif;
+        endif;
 
-         return back();
+        return back();
+    }
+
+    public function cetakPDF($id)
+    {
+        // Ambil data tabungan siswa berdasarkan ID
+        $tabunganSiswa = TabunganSiswa::with('users', 'siswa')->findOrFail($id);
+
+        // Buat view untuk PDF
+        $pdf = PDF::loadView('dashboard.tabungan-siswa.pdf', compact('tabunganSiswa'));
+
+        // Unduh file PDF
+        return $pdf->download('tabungan_siswa_' . $tabunganSiswa->siswa->nama . '.pdf');
     }
 }

@@ -14,7 +14,7 @@ class AddPotabIdToSiswa extends Migration
     public function up()
     {
         Schema::table('siswa', function (Blueprint $table) {
-            $table->bigInteger('id_potab')->unsigned();
+            $table->bigInteger('id_potab')->unsigned()->nullable();
             $table->foreign('id_potab')->references('id')->on('potabs');
         });
     }

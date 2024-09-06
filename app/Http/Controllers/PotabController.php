@@ -4,10 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Potab;
+use App\TahunPotab;
+use App\User;
 use Alert;
 
 class PotabController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware([
+           'auth',
+           'privilege:admin'
+        ]);
+   }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +25,12 @@ class PotabController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'potab' => Potab::orderBy('id', 'DESC')->paginate(10),
+            'user' => User::find(auth()->user()->id)
+        ];
+
+         return view('dashboard.data-potab.index', $data);
     }
 
     /**

@@ -3,9 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Bekal;
+use App\User;
+use App\TahunBekal;
+use Alert;
 
 class BekalController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware([
+            'auth',
+            'privilege:admin'
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +26,13 @@ class BekalController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'bekal' => Bekal::orderBy('id', 'DESC')->paginate(10),
+            'user' => User::find(auth()->user()->id)
+        ];
+
+
+        return view('dashboard.data-bekal.index', $data);
     }
 
     /**
@@ -23,7 +42,13 @@ class BekalController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'user' => User::find(auth()->user()->id),
+            'bekal' => Bekal::all(),
+            'tahunBekals' => TahunBekal::all(),
+        ];
+
+        return view('dashboard.data-bekal.create', $data);
     }
 
     /**
@@ -34,7 +59,37 @@ class BekalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'required' => ':attribute tidak boleh kosong!',
+            'numeric' => ':attribute harus berupa angka!',
+            'min' => ':attribute minimal harus :min angka!',
+            'max' => ':attribute maksimal harus :max angka!',
+            'integer' => ':attribute harus berupa nilai uang tanpa titik!'
+        ];
+
+        $validasi = $request->validate([
+            'id_tahun_bekal' => 'required',
+            'bulan' => 'required',
+            'nominal' => 'required|integer',
+        ], $messages);
+
+        if ($validasi) :
+            $store = Bekal::create([
+                'id_tahun_bekal' => $request->id_tahun_bekal,
+                'bulan' => $request->bulan,
+                'nominal' => $request->nominal,
+            ]);
+
+
+
+            if ($store) :
+                Alert::success('Berhasil!', 'Data Berhasil Ditambahkan');
+            else :
+                Alert::error('Gagal!', 'Data Gagal Ditambahkan');
+            endif;
+        endif;
+
+        return back();
     }
 
     /**
@@ -56,7 +111,13 @@ class BekalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'user' => User::find(auth()->user()->id),
+            'bekal' => Bekal::find($id),
+            'tahunBekal' => TahunBekal::all(),
+        ];
+
+        return view('dashboard.data-bekal.edit', $data);
     }
 
     /**
@@ -68,7 +129,35 @@ class BekalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $messages = [
+            'required' => ':attribute tidak boleh kosong!',
+            'numeric' => ':attribute harus berupa angka!',
+            'integer' => ':attribute harus berupa bilangan bulat!'
+        ];
+
+        $validasi = $request->validate([
+            'id_tahun_bekal' => 'required',
+            'bulan' => 'required',
+            'nominal' => 'required|integer',
+        ], $messages);
+
+        if ($validasi) :
+            $update = Bekal::find($id)->update([
+                'id_tahun_bekal' => $request->id_tahun_bekal,
+                'bulan' => $request->bulan,
+                'nominal' => $request->nominal,
+            ]);
+
+
+
+            if ($update) :
+                Alert::success('Berhasil!', 'Data Berhasil di Edit');
+            else :
+                Alert::error('Terjadi Kesalahan!', 'Data Gagal di Edit');
+            endif;
+        endif;
+
+        return redirect('/dashboard/bekal');
     }
 
     /**
@@ -79,6 +168,12 @@ class BekalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Bekal::find($id)->delete()) :
+            Alert::success('Berhasil!', 'Data Berhasil di Hapus');
+        else :
+            Alert::error('Terjadi Kesalahan!', 'Data Gagal di Hapus');
+        endif;
+
+      return back();
     }
 }

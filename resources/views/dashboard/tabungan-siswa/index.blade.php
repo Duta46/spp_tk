@@ -90,7 +90,7 @@
                                     <th scope="col">NO</th>
                                     <th scope="col">PETUGAS</th>
                                     <th scope="col">NAMA SISWA</th>
-                                    <th scope="col">SALDO</th>
+                                    <th scope="col">SISA SALDO</th>
                                     <th scope="col">MULAI MENABUNG</th>
                                     <th scope="col">UPDATE TABUNGAN</th>
                                     <th scope="col">ACTION</th>
@@ -106,8 +106,8 @@
                                         <td>{{ $value->users->name }}</td>
                                         <td>{{ $value->siswa->nama }}</td>
                                         <td>{{ $value->saldo }}</td>
-                                        <td>{{ $value->created_at->format('d M, Y') }}</td>
-                                        <td>{{ $value->updated_at->format('d M, Y') }}</td>
+                                        <td>{{ $value->created_at->format('d M, Y H:i') }}</td>
+                                        <td>{{ $value->updated_at->format('d M, Y H:i') }}</td>
                                         <td>
                                             <div class="hide-menu">
                                                 <a href="javascript:void(0)" class="text-dark" id="actiondd" role="button"
@@ -115,6 +115,10 @@
                                                     <i class="mdi mdi-dots-vertical"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="actiondd">
+                                                    {{-- <a class="dropdown-item"
+                                                    href="{{ url('/dashboard/tabungan-siswa/' . $value->id . '/cetakPDF') }}">
+                                                    <i class="mdi mdi-file-pdf"></i> Cetak PDF
+                                                 </a> --}}
                                                     <a class="dropdown-item"
                                                         href="{{ url('/dashboard/tabungan-siswa/' . $value->id . '/edit') }}"><i
                                                             class="ti-pencil"></i> Edit </a>

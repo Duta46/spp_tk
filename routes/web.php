@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TabunganSiswaController;
 
 
 Route::get('/', function () {
@@ -27,6 +29,12 @@ Route::resource('/dashboard/data-petugas', 'PetugasController');
 Route::resource('/dashboard/pembayaran', 'PembayaranController');
 Route::resource('/dashboard/histori', 'HistoryController');
 Route::resource('/dashboard/tabungan-siswa', 'TabunganSiswaController');
+Route::resource('/dashboard/tahun-bekal', 'TahunbekalController');
+Route::resource('/dashboard/tahun-potab', 'TahunPotabController');
+Route::resource('/dashboard/bekal', 'BekalController');
+Route::resource('/dashboard/potab', 'PotabController');
+
+Route::get('/dashboard/tabungan-siswa/{id}/cetakPDF', [TabunganSiswaController::class, 'cetakPDF']);
 
 Route::get('/dashboard/laporan', 'LaporanController@index');
 Route::get('/dashboard/laporan/create', 'LaporanController@create');

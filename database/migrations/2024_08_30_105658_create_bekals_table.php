@@ -15,7 +15,7 @@ class CreateBekalsTable extends Migration
     {
         Schema::create('bekals', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('tahun');
+            // $table->string('tahun');
             $table->string('bulan');
             $table->integer('nominal');
             $table->timestamps();
