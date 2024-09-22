@@ -24,10 +24,7 @@ class CreateSiswaTable extends Migration
             $table->string('nomor_telp');
             $table->bigInteger('id_spp')->unsigned();
             $table->foreign('id_spp')->references('id')->on('spp');
-            // $table->bigInteger('id_potabs')->unsigned();
-            // $table->foreign('id_potabs')->references('id')->on('potabs');
-            // $table->bigInteger('id_bekals')->unsigned();
-            // $table->foreign('id_bekals')->references('id')->on('bekals');
+            $table->string('status_ijazah')->default('Belum Lunas');
             $table->timestamps();
         });
     }

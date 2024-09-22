@@ -15,6 +15,8 @@ class CreateKegiatansTable extends Migration
     {
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('nominal');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

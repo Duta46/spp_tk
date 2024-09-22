@@ -15,7 +15,7 @@ class CreatePotabsTable extends Migration
     {
         Schema::create('potabs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            // $table->string('tahun');
+            $table->string('tahun');
             $table->string('bulan');
             $table->integer('nominal');
             $table->timestamps();

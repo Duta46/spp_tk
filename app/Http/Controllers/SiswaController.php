@@ -104,7 +104,10 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
-        //
+        $siswa = Siswa::find($id);
+        $user = User::find(auth()->user()->id);
+
+        return view('dashboard.data-siswa.show', compact('siswa', 'user'));
     }
 
     /**

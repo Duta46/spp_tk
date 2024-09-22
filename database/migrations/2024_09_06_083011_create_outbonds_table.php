@@ -15,6 +15,8 @@ class CreateOutbondsTable extends Migration
     {
         Schema::create('outbonds', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('tahun');
+            $table->integer('nominal');
             $table->timestamps();
         });
     }

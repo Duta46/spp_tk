@@ -20,8 +20,8 @@ class CreatePembayaranTable extends Migration
             $table->bigInteger('id_siswa')->unsigned();
             $table->foreign('id_siswa')->references('id')->on('siswa')->onDelete('cascade');
             $table->string('spp_bulan',20);
-            $table->integer('jumlah_bayar')->nullable();
-            $table->text('keterangan')->nullable();
+            $table->integer('jumlah_bayar');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

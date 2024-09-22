@@ -20,31 +20,16 @@
                         @csrf
                         @method('put')
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text">
-                                    Tahun
-                                </label>
-                            </div>
-                            <select name="id_tahun_bekal" class="custom-select @error('id_tahun_bekal') is-invalid @enderror"
-                                {{ count($tahunBekal) == 0 ? 'disabled' : '' }}>
-                                @if (count($tahunBekal) == 0)
-                                    <option>Pilihan tidak ada</option>
-                                @else
-                                    <option value="">Silahkan Pilih</option>
-                                    @foreach ($tahunBekal as $value)
-                                        <option value="{{ $value->id }}"
-                                            {{ $bekal->id_tahun_bekal == $value->id ? 'selected' : '' }}>
-                                            {{ $value->tahun }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
+                        <div class="form-group">
+                            <label>Tahun</label>
+                            <input type="number" class="form-control @error('tahun') is-invalid @enderror"
+                                name="tahun" value="{{ $bekal->tahun }}">
+                            <span class="text-danger">
+                                @error('tahun')
+                                    {{ $message }}
+                                @enderror
+                            </span>
                         </div>
-                        <span class="text-danger">
-                            @error('id_tahun_bekal')
-                                {{ $message }}
-                            @enderror
-                        </span>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -84,7 +69,7 @@
 
                         <div class="form-group">
                             <label>Nominal</label>
-                            <input type="text" class="form-control @error('nominal') is-invalid @enderror"
+                            <input type="number" class="form-control @error('nominal') is-invalid @enderror"
                                 name="nominal" value="{{ $bekal->nominal }}">
                             <span class="text-danger">
                                 @error('nominal')

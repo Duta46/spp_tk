@@ -13,7 +13,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">Data Potab</div>
-                    <a href="{{ url('/dashboard/potab/create') }}" class="btn btn-success btn-rounded float-right mb-3">
+                    <a href="{{ url('/dashboard/data-potab/create') }}" class="btn btn-success btn-rounded float-right mb-3">
                         <i class="mdi mdi-plus-circle"></i> {{ __('Tambah Data Potab') }}
                     </a>
                     <div class="table-responsive mb-3">
@@ -35,7 +35,7 @@
                                 @foreach ($potab as $value)
                                     <tr>
                                         <th scope="row">{{ $i }}</th>
-                                        <td>{{ $value->tahunBekal->tahun }}</td>
+                                        <td>{{ $value->tahun }}</td>
                                         <td>{{ $value->bulan }}</td>
                                         <td>{{ $value->nominal }}</td>
                                         <td>{{ $value->created_at->format('d M, Y') }}</td>
@@ -48,9 +48,9 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="actiondd">
                                                     <a class="dropdown-item"
-                                                        href="{{ url('dashboard/bekal/' . $value->id . '/edit') }}"><i
+                                                        href="{{ url('/dashboard/data-potab/' . $value->id . '/edit') }}"><i
                                                             class="ti-pencil"></i> Edit </a>
-                                                    <form method="post" action="{{ url('dashboard/bekal', $value->id) }}"
+                                                    <form method="post" action="{{ url('/dashboard/data-potab', $value->id) }}"
                                                         id="delete{{ $value->id }}">
                                                         @csrf
                                                         @method('delete')
@@ -91,7 +91,7 @@
                     @endif
                     <!-- End Pagination -->
 
-                    @if (count($bekal) == 0)
+                    @if (count($potab) == 0)
                         <div class="text-center">Tidak ada data!</div>
                     @endif
                 </div>

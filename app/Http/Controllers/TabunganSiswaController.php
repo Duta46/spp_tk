@@ -164,7 +164,7 @@ class TabunganSiswaController extends Controller
         endif;
 
         Alert::success('Berhasil!', 'Tabungan berhasil di Edit');
-        return back();
+        return redirect('/dashboard/tabungan-siswa');
     }
 
     /**

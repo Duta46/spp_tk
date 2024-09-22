@@ -101,8 +101,8 @@ class PembayaranController extends Controller
 
             return back();
         } else {
-               // Saldo tidak cukup atau tabungan tidak ditemukan
-        return back()->withErrors(['jumlah_bayar' => 'Saldo tabungan tidak mencukupi untuk melakukan pembayaran SPP.'])->withInput();
+            // Saldo tidak cukup atau tabungan tidak ditemukan
+            return back()->withErrors(['jumlah_bayar' => 'Saldo tabungan tidak mencukupi untuk melakukan pembayaran SPP.'])->withInput();
         }
     }
 
@@ -157,31 +157,34 @@ class PembayaranController extends Controller
 
         $pembayaran = Pembayaran::find($id);
 
+        // Cek siswa dengan NISN
+        if (!Siswa::where('nisn', $req->nisn)->exists()) {
+            Alert::error('Terjadi Kesalahan!', 'Siswa dengan NISN ini Tidak di Temukan');
+            return back()->withInput();
+        }
+
+        $siswa = Siswa::where('nisn', $req->nisn)->first();
+        $tabungan = TabunganSiswa::where('id_siswa', $siswa->id)->first();
+
+        // Hitung perbedaan jumlah pembayaran
+        $difference = $pembayaran->jumlah_bayar - $req->jumlah_bayar;
+
+        if ($difference > 0 && $tabungan) {
+            // Jika pembayaran baru lebih kecil, kembalikan selisihnya ke saldo tabungan
+            $tabungan->saldo += $difference;
+            $tabungan->save();
+        }
+
+        // Update data pembayaran
         $pembayaran->update([
             'spp_bulan' => $req->spp_bulan,
-            'jumlah_bayar' => $req->jumlah_bayar
+            'jumlah_bayar' => $req->jumlah_bayar,
+            'id_siswa' => $siswa->id,
         ]);
 
-        if (Siswa::where('nisn', $req->nisn)->exists() == false):
-            Alert::error('Terjadi Kesalahan!', 'Siswa dengan NISN ini Tidak di Temukan');
-            return back();
-            exit;
-        endif;
-
-        if ($req->nisn != $pembayaran->siswa->nisn) :
-            $siswa = Siswa::where('nisn', $req->nisn)->get();
-
-            foreach ($siswa as $val) {
-                $id_siswa = $val->id;
-            }
-
-            $pembayaran->update([
-                'id_siswa' => $id_siswa,
-            ]);
-        endif;
-
-        Alert::success('Berhasil!', 'Pembayaran berhasil di Edit');
+        Alert::success('Berhasil!', 'Pembayaran berhasil di Edit.');
         return back();
+
     }
 
     /**

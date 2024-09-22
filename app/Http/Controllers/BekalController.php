@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Bekal;
 use App\User;
-use App\TahunBekal;
 use Alert;
 
 class BekalController extends Controller
@@ -45,7 +44,6 @@ class BekalController extends Controller
         $data = [
             'user' => User::find(auth()->user()->id),
             'bekal' => Bekal::all(),
-            'tahunBekals' => TahunBekal::all(),
         ];
 
         return view('dashboard.data-bekal.create', $data);
@@ -68,14 +66,14 @@ class BekalController extends Controller
         ];
 
         $validasi = $request->validate([
-            'id_tahun_bekal' => 'required',
+            'tahun' => 'required',
             'bulan' => 'required',
             'nominal' => 'required|integer',
         ], $messages);
 
         if ($validasi) :
             $store = Bekal::create([
-                'id_tahun_bekal' => $request->id_tahun_bekal,
+                'tahun' => $request->tahun,
                 'bulan' => $request->bulan,
                 'nominal' => $request->nominal,
             ]);
@@ -89,7 +87,7 @@ class BekalController extends Controller
             endif;
         endif;
 
-        return back();
+        return redirect('/dashboard/bekal');
     }
 
     /**
@@ -114,7 +112,6 @@ class BekalController extends Controller
         $data = [
             'user' => User::find(auth()->user()->id),
             'bekal' => Bekal::find($id),
-            'tahunBekal' => TahunBekal::all(),
         ];
 
         return view('dashboard.data-bekal.edit', $data);
@@ -136,14 +133,14 @@ class BekalController extends Controller
         ];
 
         $validasi = $request->validate([
-            'id_tahun_bekal' => 'required',
+            'tahun' => 'required',
             'bulan' => 'required',
             'nominal' => 'required|integer',
         ], $messages);
 
         if ($validasi) :
             $update = Bekal::find($id)->update([
-                'id_tahun_bekal' => $request->id_tahun_bekal,
+                'tahun' => $request->tahun,
                 'bulan' => $request->bulan,
                 'nominal' => $request->nominal,
             ]);
@@ -168,12 +165,12 @@ class BekalController extends Controller
      */
     public function destroy($id)
     {
-        if(Bekal::find($id)->delete()) :
+        if (Bekal::find($id)->delete()) :
             Alert::success('Berhasil!', 'Data Berhasil di Hapus');
         else :
             Alert::error('Terjadi Kesalahan!', 'Data Gagal di Hapus');
         endif;
 
-      return back();
+        return back();
     }
 }

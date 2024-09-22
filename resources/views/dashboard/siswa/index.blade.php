@@ -9,9 +9,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card" ">
-                <div class="card-body">
-                   <div class="card-title">Histori Pembayaran</div>
-                                   @foreach ($pembayaran as $history)
+                    <div class="card-body">
+                       <div class="card-title">Histori Pembayaran</div>
+                                        @foreach ($pembayaran as $history)
                 <div class="d-flex flex-row comment-row">
                     <i class="mdi mdi-account display-3"></i>
                     <div class="comment-text active w-100">

@@ -26,11 +26,9 @@
                                 <tr>
                                     <th scope="col">NO</th>
                                     <th scope="col">NISN</th>
-                                    <th scope="col">NIS</th>
                                     <th scope="col">NAMA</th>
                                     <th scope="col">KELAS</th>
                                     <th scope="col">NOMOR TELEPON</th>
-                                    <th scope="col">ALAMAT</th>
                                     <th scope="col">ACTION</th>
                                 </tr>
                             </thead>
@@ -42,11 +40,9 @@
                                     <tr>
                                         <th scope="row">{{ $i }}</th>
                                         <td>{{ $value->nisn }}</td>
-                                        <td>{{ $value->nis }}</td>
                                         <td>{{ $value->nama }}</td>
                                         <td>{{ $value->kelas->nama_kelas }}</td>
                                         <td>{{ $value->nomor_telp }}</td>
-                                        <td>{{ $value->alamat }}</td>
                                         <td>
                                             <div class="hide-menu">
                                                 <a href="javascript:void(0)" class="text-dark" id="actiondd" role="button"
@@ -54,6 +50,9 @@
                                                     <i class="mdi mdi-dots-vertical"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="actiondd">
+                                                    <a class="dropdown-item"
+                                                        href="{{ url('dashboard/data-siswa/' . $value->id) }}"><i
+                                                            class="ti-eye"></i> Detail Siswa </a>
                                                     <a class="dropdown-item"
                                                         href="{{ url('dashboard/data-siswa/' . $value->id . '/edit') }}"><i
                                                             class="ti-pencil"></i> Edit </a>

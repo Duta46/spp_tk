@@ -19,25 +19,17 @@
                     <form method="post" action="{{ url('/dashboard/bekal') }}">
                         @csrf
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text">
-                                    Tahun
-                                </label>
-                            </div>
-                            <select class="custom-select @error('id_tahun_bekal') is-invalid @enderror"
-                                name="id_tahun_bekal">
-                                <option value="" hidden>Silahkan Pilih</option>
-                                @foreach ($tahunBekals as $tahunBekal)
-                                    <option value="{{ $tahunBekal->id }}">{{ $tahunBekal->tahun }}</option>
-                                @endforeach
-                            </select>
+                        <div class="form-group">
+                            <label>Tahun</label>
+                            <input type="number" class="form-control @error('tahun') is-invalid @enderror" name="tahun"
+                                value="{{ old('tahun') }}">
+                            <span class="text-danger">
+                                @error('tahun')
+                                    {{ $message }}
+                                @enderror
+                            </span>
                         </div>
-                        <span class="text-danger">
-                            @error('id_tahun_bekal')
-                                {{ $message }}
-                            @enderror
-                        </span>
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text">

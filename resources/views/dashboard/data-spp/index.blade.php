@@ -31,7 +31,7 @@
 
                         <div class="form-group">
                             <label>Nominal</label>
-                            <input type="text" class="form-control @error('nominal') is-invalid @enderror" name="nominal"
+                            <input type="number" class="form-control @error('nominal') is-invalid @enderror" name="nominal"
                                 value="{{ old('nominal') }}">
                             <span class="text-danger">
                                 @error('nominal')
@@ -116,7 +116,7 @@
                     <!-- Pagination -->
                     @if ($spp->lastPage() != 1)
                         <div class="btn-group float-right">
-                            <a href="{{ $app->previousPageUrl() }}" class="btn btn-success">
+                            <a href="{{ $spp->previousPageUrl() }}" class="btn btn-success">
                                 <i class="mdi mdi-chevron-left"></i>
                             </a>
                             @for ($i = 1; $i <= $spp->lastPage(); $i++)

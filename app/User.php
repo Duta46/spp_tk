@@ -71,4 +71,39 @@ class User extends Authenticatable
     {
         return $this->hasMany(TabunganSiswa::class);
     }
+
+    public function pembayaranBekal()
+    {
+        return $this->hasMany(PembayaranBekal::class);
+    }
+
+    public function pembayaranPotab()
+    {
+        return $this->hasMany(PembayaranPotab::class);
+    }
+
+    public function historyTabungan()
+    {
+        return $this->hasMany(HistoryTabungan::class);
+    }
+
+    public function PembayaranIjazah()
+    {
+         return $this->hasMany(PembayaranIjazah::class);
+    }
+
+    public function PembayaranOutbond()
+    {
+         return $this->hasMany(PembayaranOutbond::class);
+    }
+
+    public function PembayaranDrumband()
+    {
+         return $this->hasMany(PembayaranDrumband::class);
+    }
+
+    public function PembayaranKegiatan()
+   {
+        return $this->hasMany(PembayaranKegiatan::class);
+   }
 }

@@ -15,6 +15,10 @@ class CreateUjiansTable extends Migration
     {
         Schema::create('ujians', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('jenis_ujian');
+            $table->string('tahun');
+            $table->string('semester');
+            $table->integer('nominal');
             $table->timestamps();
         });
     }

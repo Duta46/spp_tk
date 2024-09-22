@@ -15,6 +15,8 @@ class CreateDaftarUlangsTable extends Migration
     {
         Schema::create('daftar_ulangs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('tahun');
+            $table->integer('nominal');
             $table->timestamps();
         });
     }

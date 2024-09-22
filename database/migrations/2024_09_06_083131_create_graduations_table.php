@@ -15,6 +15,7 @@ class CreateGraduationsTable extends Migration
     {
         Schema::create('graduations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('nominal');
             $table->timestamps();
         });
     }

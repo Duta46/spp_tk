@@ -15,6 +15,8 @@ class CreateDrumbandsTable extends Migration
     {
         Schema::create('drumbands', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('tahun');
+            $table->integer('nominal');
             $table->timestamps();
         });
     }

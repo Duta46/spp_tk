@@ -27,7 +27,7 @@
 
                            <div class="form-group">
                               <label>Nominal</label>
-                              <input type="text" class="form-control @error('nominal') is-invalid @enderror" name="nominal" value="{{ $edit->nominal }}">
+                              <input type="number" class="form-control @error('nominal') is-invalid @enderror" name="nominal" value="{{ $edit->nominal }}">
                               <span class="text-danger">@error('nominal') {{ $message }} @enderror</span>
                            </div>
 

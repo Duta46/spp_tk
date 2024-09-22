@@ -15,6 +15,8 @@ class CreateIjazahsTable extends Migration
     {
         Schema::create('ijazahs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('tahun');
+            $table->integer('nominal');
             $table->timestamps();
         });
     }
